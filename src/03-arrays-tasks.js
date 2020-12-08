@@ -533,11 +533,12 @@ function distinct(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
+  const a = {};
   const res = array.reduce((obj, elem) => {
     const key = keySelector(elem);
-    obj[key] = obj[key] || [];
-    obj[key].push(valueSelector(elem));
-    return obj;
+    a[key] = a[key] || [];
+    a[key].push(valueSelector(elem));
+    return a;
   }, {});
   return new Map(Object.entries(res));
   // throw new Error('Not implemented');
