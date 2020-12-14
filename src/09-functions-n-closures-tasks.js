@@ -64,19 +64,19 @@ function getPowerFunction(exponent) {
  *   getPolynom(8)     => y = 8
  *   getPolynom()      => null
  */
-function getPolynom() {
-  throw new Error('Not implemented');
-  // const len = args.length;
-  // if (len === 0) {
-  //   return null;
-  // }
-  // return (x) => {
-  //   let res = 0;
-  //   for (let i = len - 1; i >= 0; i -= 1) {
-  //     res += args[i] * (x ** i);
-  //   }
-  //   return res;
-  // };
+function getPolynom(...args) {
+  // throw new Error('Not implemented');
+  const len = args.length;
+  if (len === 0) {
+    return null;
+  }
+  return (x) => {
+    let res = 0;
+    for (let i = 0; i < len; i += 1) {
+      res += args[i] * (x ** (len - i - 1));
+    }
+    return res;
+  };
 }
 
 
@@ -94,8 +94,18 @@ function getPolynom() {
  *   ...
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
-function memoize(/* func */) {
-  throw new Error('Not implemented');
+function memoize(func) {
+  const f = func;
+  // throw new Error('Not implemented');
+  return ((...args) => {
+    const key = JSON.stringify(args);
+    f.memory = f.memory || {};
+    if (f.memory[key]) {
+      return f.memory[key];
+    }
+    f.memory[key] = f(...args);
+    return f.memory[key];
+  });
 }
 
 
@@ -162,6 +172,11 @@ function logger(/* func, logFunc */) {
  */
 function partialUsingArguments(/* fn, ...args1 */) {
   throw new Error('Not implemented');
+  // const x = args1;
+//   if (args1.length >= fn.length) {
+//     return () => fn(args1);
+//   }
+//   return (...args2) => fn(...args1.concat(...args2));
 }
 
 
